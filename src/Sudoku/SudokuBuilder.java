@@ -1,6 +1,5 @@
 package Sudoku;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class SudokuBuilder {
