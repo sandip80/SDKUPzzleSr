@@ -1,30 +1,28 @@
-package Sudoku;
+package sudoku;
 
-import SudokuTest.TestSudoku;
+import sudoku.test.TestSudoku;
 
 public class SudokuMain {
 	public static void main(String[] args) {
-		SudokuBuilder builder = new SudokuBuilder();
-		int[][] sudoku = builder.getSoduku();
+		SudokuHard sudo = new SudokuHard();
 		long start = System.nanoTime();
-		if (TestSudoku.testSudoku(sudoku)) {
+		if (TestSudoku.testSudoku(sudo.getSolution())) {
 			System.out.println("Valid sudoku");
 		} else {
 			System.out.println("Invalid sudoku");
 		}
-		print(sudoku);
+		print(sudo.toStringSudo(sudo.getSudoku()));
+		System.out.println("\n");
+		print(sudo.toStringSudo(sudo.getSolution()));
 		long ellapsed = System.nanoTime() - start;
 		Double tomillis = new Double(ellapsed);
 		tomillis = tomillis / 1000000;
 		System.out.println("Time ellapsed: " + tomillis + " ms");
 	}
 
-	private static void print(int[][] sudoku) {
+	private static void print(String[] sudoku) {
 		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
-				System.out.print(sudoku[i][j] + " ");
-			}
-			System.out.println();
+			System.out.println(sudoku[i]);
 		}
 	}
 }

@@ -1,4 +1,4 @@
-package SudokuTest;
+package sudoku.test;
 
 public class TestSudoku {
 	private static int[][] testsudoku;

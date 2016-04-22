@@ -1,4 +1,4 @@
-package Sudoku;
+package sudoku;
 
 import java.util.Random;
 
@@ -8,10 +8,7 @@ public class SudokuBuilder {
 			
 	public SudokuBuilder() {
 		rn = new Random();
-		sudoku = new int[9][9];
-		assignNumbers();
-		//createEasyPuzzle(200);
-		createHardPuzzle(1000);
+		sudoku = new int[9][9];		
 	}
 
 	private void assignNumbers() {
@@ -23,6 +20,7 @@ public class SudokuBuilder {
 	}
 	
 	public void createHardPuzzle(int iteration) {
+		assignNumbers();
 		while (iteration != 0) {
 			int num1 = rn.nextInt(9) + 1;
 			int num2 = rn.nextInt(9) + 1;
@@ -32,6 +30,7 @@ public class SudokuBuilder {
 	}
 	
 	public void createEasyPuzzle(int iteration) {
+		assignNumbers();
 		while (iteration != 0) {
 			for (int i = 0; i < 9; i += 3) {
 				for (int j = 0; j < 9; j += 3) {
@@ -47,7 +46,7 @@ public class SudokuBuilder {
 		}
 	}
 	
-	public void swapTwoRows(int row1, int row2) {
+	private void swapTwoRows(int row1, int row2) {
 		for (int i = 0; i < 9; i++) {
 			int temp = sudoku[row1][i];
 			sudoku[row1][i] = sudoku[row2][i];
@@ -55,7 +54,7 @@ public class SudokuBuilder {
 		}
 	}
 	
-	public void swapTwoColumns(int column1, int column2) {
+	private void swapTwoColumns(int column1, int column2) {
 		for (int i = 0; i < 9; i++) {
 			int temp = sudoku[i][column1];
 			sudoku[i][column1] = sudoku[i][column2];
@@ -63,7 +62,7 @@ public class SudokuBuilder {
 		}
 	}
 	
-	public void swapCells(int num1, int num2) {
+	private void swapCells(int num1, int num2) {
 		boolean swapped = false;
 		for (int i = 0; i < 9; i++) {
 			swapped = false;
@@ -84,8 +83,26 @@ public class SudokuBuilder {
 		}
 	}
 	
+	public void removeCells(int[][] sudo, int num) {
+		while (num != 0) {
+			int row = rn.nextInt(9);
+			int column = rn.nextInt(9);
+			if (sudo[row][column] != 0) {
+				sudo[row][column] = 0;
+				num--;
+			}
+		}
+	}
+	
 	public int[][] getSoduku() {
-		int[][] sudokuCP = sudoku;
+		int[][] sudokuCP = new int[9][9];
+		SudokuBuilder.copyArray(sudoku, sudokuCP, 9);
 		return sudokuCP;
+	}
+	
+	public static void copyArray(int[][] src, int[][] dest, int length) {
+		for (int i = 0; i < length; i++) {
+			System.arraycopy(src[i], 0, dest[i], 0, length);
+		}
 	}
 }
